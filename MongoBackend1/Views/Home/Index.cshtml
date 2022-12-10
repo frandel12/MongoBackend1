@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Mongo Backend";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col"> Name </th>
+            <th scope="col"> Email </th>
+            <th scope="col"> Phone </th>
+            <th scope="col"> Address </th>
+            <th scope="col"> Date In </th>
+            <th scope="col"> Action </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var @item in ViewBag.UserList)
+        {
+            <tr>
+                <td> @item.name </td>
+                <td> @item.email </td>
+                <td> @item.phone </td>
+                <td> @item.address </td>
+                <td> @item.dateIn </td>
+                <td class="actions">
+
+                    <form asp-action="updateUser" asp-controller="Home" method="POST">
+                        <input id="txtid" name="txtid" value="@item._id" hidden />
+                        <button class="btn btn-warning" type="submit">Modificar</button>
+                    </form>
+                    <form asp-action="deleteUser" asp-controller="Home" method="POST">
+                        <input id="txtid" name="txtid" value="@item._id" hidden />
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<button class="btn btn-primary btn-sm"
+        onclick="window.location= '@Url.Action("Insert", "Home")'">
+    Insert User
+</button>
